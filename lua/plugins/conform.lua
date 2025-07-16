@@ -43,10 +43,16 @@ return {
         markdown = { "prettierd", "prettier" },
         sh = { "shfmt" },
         go = { "gofmt", "goimports" },
+        toml = { "taplo" },
       },
       formatters = {
         stylua = {
           prepend_args = { "--indent-type", "Spaces", "--indent-width", "2" },
+        },
+        taplo = {
+          command = "taplo",
+          args = { "format", "-" },
+          stdin = true,
         },
       },
     },
