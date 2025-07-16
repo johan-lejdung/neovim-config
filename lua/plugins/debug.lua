@@ -34,6 +34,13 @@ return {
       desc = "Debug: Start/Continue",
     },
     {
+      "<leader>dr",
+      function()
+        require("dap").restart()
+      end,
+      desc = "Debug: Restart",
+    },
+    {
       "<leader>di",
       function()
         require("dap").step_into()

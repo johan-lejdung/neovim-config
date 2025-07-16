@@ -9,3 +9,6 @@ Todo:
 - [ ] Setup Frontend
 - [ ] Setup treesitter for Bruno
 - [ ] Setup diffview? https://github.com/sindrets/diffview.nvim
+- [ ] Inline SQL
+- [ ] Postgres language server https://pgtools.dev/latest/
+- [ ] Undotree https://github.com/jiaoshijie/undotree

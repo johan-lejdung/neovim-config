@@ -45,6 +45,7 @@ return {
       -- [[ Configure Telescope ]]
       -- See `:help telescope` and `:help telescope.setup()`
       local actions = require("telescope.actions")
+      local open_with_trouble = require("trouble.sources.telescope").open
       require("telescope").setup({
         -- You can put your default mappings / updates / etc. in here
         --  All the info you're looking for is in `:help telescope.setup()`
@@ -54,7 +55,9 @@ return {
             i = {
               ["<c-enter>"] = "to_fuzzy_refine",
               ["<esc>"] = actions.close,
+              ["<c-t>"] = open_with_trouble,
             },
+            n = { ["<c-t>"] = open_with_trouble },
           },
         },
         -- pickers = {}
@@ -73,24 +76,13 @@ return {
       local builtin = require("telescope.builtin")
       local utils = require("telescope.utils")
 
+      -- Quicker keymaps
       vim.keymap.set("n", "<leader>E", function()
         builtin.find_files({ cwd = utils.buffer_dir() })
       end, { desc = "Search files in directory" })
-      vim.keymap.set("n", "<leader>sh", builtin.help_tags, { desc = "[S]earch [H]elp" })
-      vim.keymap.set("n", "<leader>sk", builtin.keymaps, { desc = "[S]earch [K]eymaps" })
-      vim.keymap.set("n", "<leader>sf", builtin.find_files, { desc = "[S]earch [F]iles" })
       vim.keymap.set("n", "<leader>f", builtin.find_files, { desc = "Search [F]iles" })
-      vim.keymap.set("n", "<leader>ss", builtin.builtin, { desc = "[S]earch [S]elect Telescope" })
-      vim.keymap.set("n", "<leader>sw", builtin.grep_string, { desc = "[S]earch current [W]ord" })
-      vim.keymap.set("n", "<leader>sg", builtin.live_grep, { desc = "[S]earch by [G]rep" })
       vim.keymap.set("n", "<leader>g", builtin.live_grep, { desc = "Search by [G]rep" })
-      vim.keymap.set("n", "<leader>sd", builtin.diagnostics, { desc = "[S]earch [D]iagnostics" })
-      vim.keymap.set("n", "<leader>sr", builtin.resume, { desc = "[S]earch [R]esume" })
-      vim.keymap.set("n", "<leader>s.", builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
-      vim.keymap.set("n", "<leader>st", ":TodoTelescope keywords=TODO,FIX,HACK<CR>", { desc = "[S]earch Todos" })
       vim.keymap.set("n", "<leader><leader>", builtin.buffers, { desc = "[ ] Find existing buffers" })
-
-      -- Slightly advanced example of overriding default behavior and theme
       vim.keymap.set("n", "<leader>/", function()
         -- You can pass additional configuration to Telescope to change the theme, layout, etc.
         builtin.current_buffer_fuzzy_find(require("telescope.themes").get_dropdown({
@@ -99,8 +91,27 @@ return {
         }))
       end, { desc = "[/] Fuzzily search in current buffer" })
 
-      -- It's also possible to pass additional configuration options.
-      --  See `:help telescope.builtin.live_grep()` for information about particular keys
+      -- Keymaps under s
+      vim.keymap.set("n", "<leader>sh", builtin.help_tags, { desc = "[S]earch [H]elp" })
+      vim.keymap.set("n", "<leader>sk", builtin.keymaps, { desc = "[S]earch [K]eymaps" })
+      vim.keymap.set("n", "<leader>sf", builtin.find_files, { desc = "[S]earch [F]iles" })
+      vim.keymap.set("n", "<leader>ss", builtin.builtin, { desc = "[S]earch [S]elect Telescope" })
+      vim.keymap.set("n", "<leader>sw", builtin.grep_string, { desc = "[S]earch current [W]ord" })
+      vim.keymap.set("n", "<leader>sg", builtin.live_grep, { desc = "[S]earch by [G]rep" })
+      vim.keymap.set("n", "<leader>sr", builtin.resume, { desc = "[S]earch [R]esume" })
+      -- Buffer diagnostics in telescope, then <c-t> to send to trouble
+      vim.keymap.set("n", "<leader>sd", function()
+        require("telescope.builtin").diagnostics({ bufnr = 0 })
+      end, { desc = "[S]earch [D]iagnostics (Buffer)" })
+
+      -- Workspace diagnostics in telescope, then <c-t> to send to trouble
+      vim.keymap.set("n", "<leader>sD", function()
+        require("telescope.builtin").diagnostics()
+      end, { desc = "[S]earch [D]iagnostics (Workspace)" })
+      vim.keymap.set("n", "<leader>s.", builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
+      vim.keymap.set("n", "<leader>st", ":TodoTelescope keywords=TODO,FIX,HACK<CR>", { desc = "[S]earch Todos" })
+
+      --  See `:help telescope.builtin.live_grep()` for information about particular keys for configuration options
       vim.keymap.set("n", "<leader>s/", function()
         builtin.live_grep({
           grep_open_files = true,
