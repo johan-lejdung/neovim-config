@@ -5,7 +5,6 @@ I started with the modular kickstarter, original readme is still present.
 
 Todo:
 
-- [ ] Setup Frontend
 - [ ] Setup diffview? https://github.com/sindrets/diffview.nvim
 - [ ] Inline SQL
 - [ ] Postgres language server https://pgtools.dev/latest/

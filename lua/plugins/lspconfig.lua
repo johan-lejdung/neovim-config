@@ -198,6 +198,7 @@ return {
 
         gopls = {},
         pyright = {},
+        ts_ls = {},
         lua_ls = {
           -- cmd = { ... },
           -- filetypes = { ... },
