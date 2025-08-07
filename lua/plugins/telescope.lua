@@ -82,7 +82,7 @@ return {
       end, { desc = "Search files in directory" })
       vim.keymap.set("n", "<leader>f", builtin.find_files, { desc = "Search [F]iles" })
       vim.keymap.set("n", "<leader>g", builtin.live_grep, { desc = "Search by [G]rep" })
-      vim.keymap.set("n", "<leader><leader>", builtin.buffers, { desc = "[ ] Find existing buffers" })
+      vim.keymap.set("n", "<leader>b", builtin.buffers, { desc = "Find existing [B]uffers" })
       vim.keymap.set("n", "<leader>/", function()
         -- You can pass additional configuration to Telescope to change the theme, layout, etc.
         builtin.current_buffer_fuzzy_find(require("telescope.themes").get_dropdown({

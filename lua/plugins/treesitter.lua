@@ -43,11 +43,13 @@ return {
           "luadoc",
           "markdown",
           "markdown_inline",
+          "sql",
           "query",
           "vim",
           "vimdoc",
         },
         -- Autoinstall languages that are not installed
+        sync_install = false,
         auto_install = true,
         highlight = {
           enable = true,
