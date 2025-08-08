@@ -70,11 +70,15 @@ return {
 
           -- Fuzzy find all the symbols in your current document.
           --  Symbols are things like variables, functions, types, etc.
-          map("gs", require("telescope.builtin").lsp_document_symbols, "Open Document Symbols")
+          map("gs", function()
+            require("telescope.builtin").lsp_document_symbols({ symbol_width = 75, show_line = true })
+          end, "Open Document Symbols")
 
           -- Fuzzy find all the symbols in your current workspace.
           --  Similar to document symbols, except searches over your entire project.
-          map("gS", require("telescope.builtin").lsp_dynamic_workspace_symbols, "Open Workspace Symbols")
+          map("gS", function()
+            require("telescope.builtin").lsp_dynamic_workspace_symbols({ symbol_width = 75, show_line = true })
+          end, "Open Workspace Symbols")
 
           -- Jump to the type of the word under your cursor.
           --  Useful when you're not sure what type a variable is and you want to see
