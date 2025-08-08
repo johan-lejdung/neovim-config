@@ -99,6 +99,11 @@ return {
       vim.keymap.set("n", "<leader>sw", builtin.grep_string, { desc = "[S]earch current [W]ord" })
       vim.keymap.set("n", "<leader>sg", builtin.live_grep, { desc = "[S]earch by [G]rep" })
       vim.keymap.set("n", "<leader>sr", builtin.resume, { desc = "[S]earch [R]esume" })
+
+      -- Buffer diagnostics in telescope, then <c-t> to send to trouble or <c-q> to quick fix list
+      vim.keymap.set("n", "<leader>Q", function()
+        require("telescope.builtin").diagnostics({ bufnr = 0 })
+      end, { desc = "Search Diagnostics (Buffer)" })
       -- Buffer diagnostics in telescope, then <c-t> to send to trouble
       vim.keymap.set("n", "<leader>sd", function()
         require("telescope.builtin").diagnostics({ bufnr = 0 })
