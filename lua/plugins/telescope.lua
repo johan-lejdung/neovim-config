@@ -53,7 +53,7 @@ return {
         defaults = {
           mappings = {
             i = {
-              ["<c-enter>"] = "to_fuzzy_refine",
+              ["<c-f>"] = "to_fuzzy_refine",
               ["<esc>"] = actions.close,
               ["<c-t>"] = open_with_trouble,
             },
