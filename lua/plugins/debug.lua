@@ -34,6 +34,65 @@ return {
       desc = "Debug: Start/Continue",
     },
     {
+      "<leader>dc",
+      function()
+        require("dap").run_to_cursor()
+      end,
+      desc = "Debug: Run to Cursor",
+    },
+    {
+      "<leader>dh",
+      function()
+        require("dap.ui.widgets").hover()
+      end,
+      desc = "Debug: Hover Variables",
+      mode = { "n", "v" },
+    },
+    {
+      "<leader>dp",
+      function()
+        require("dap.ui.widgets").preview()
+      end,
+      desc = "Debug: Preview",
+    },
+    {
+      "<leader>dw",
+      function()
+        local word = vim.fn.expand("<cword>")
+        require("dapui").elements.watches.add(word)
+      end,
+      desc = "Debug: Add word to watchlist",
+    },
+    {
+      "<leader>dW",
+      function()
+        local dapui = require("dapui")
+        local watches = dapui.elements.watches
+
+        -- Get current watch expressions
+        local watch_list = {}
+        for i, watch in ipairs(watches.get()) do
+          table.insert(watch_list, string.format("%d: %s", i, watch.expression))
+        end
+
+        if #watch_list == 0 then
+          vim.notify("No watch expressions to remove", vim.log.levels.INFO)
+          return
+        end
+
+        -- Use vim.ui.select to choose which one to remove
+        vim.ui.select(watch_list, {
+          prompt = "Select watch expression to remove:",
+        }, function(choice, idx)
+          if choice and idx then
+            watches.remove(idx)
+            vim.notify(string.format("Removed watch: %s", choice), vim.log.levels.INFO)
+          end
+        end)
+      end,
+      desc = "Debug: Choose watch to remove",
+    },
+    {
       "<leader>dr",
       function()
         require("dap").restart()
@@ -71,7 +130,7 @@ return {
     {
       "<leader>dD",
       function()
-        require("dap").terminate()
+        require("dap").disconnect()
       end,
       desc = "Debug: Disconnect",
     },
@@ -81,6 +140,13 @@ return {
         require("dap").toggle_breakpoint()
       end,
       desc = "Debug: Toggle Breakpoint",
+    },
+    {
+      "<leader>dC",
+      function()
+        require("dap").clear_breakpoints()
+      end,
+      desc = "Debug: Clear All Breakpoints",
     },
     {
       "<leader>dB",
