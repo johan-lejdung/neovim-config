@@ -82,6 +82,7 @@ return {
       end, { desc = "Search files in directory" })
       vim.keymap.set("n", "<leader>f", builtin.find_files, { desc = "Search [F]iles" })
       vim.keymap.set("n", "<leader>g", builtin.live_grep, { desc = "Search by [G]rep" })
+      vim.keymap.set("n", "<leader>G", builtin.git_status, { desc = "Search by [G]it Status" })
       vim.keymap.set("n", "<leader>b", builtin.buffers, { desc = "Find existing [B]uffers" })
       vim.keymap.set("n", "<leader>/", function()
         -- You can pass additional configuration to Telescope to change the theme, layout, etc.
