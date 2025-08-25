@@ -54,7 +54,7 @@ return {
           mappings = {
             i = {
               ["<c-f>"] = "to_fuzzy_refine",
-              ["<esc>"] = actions.close,
+              ["<c-c>"] = actions.close,
               ["<c-t>"] = open_with_trouble,
             },
             n = { ["<c-t>"] = open_with_trouble },

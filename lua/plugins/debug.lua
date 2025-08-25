@@ -6,8 +6,8 @@
 -- be extended to other languages as well. That's why it's called
 -- kickstart.nvim and not kitchen-sink.nvim ;)
 
+-- NOTE: Yes, you can install new plugins here!
 return {
-  -- NOTE: Yes, you can install new plugins here!
   "mfussenegger/nvim-dap",
   -- NOTE: And you can specify dependencies as well
   dependencies = {
@@ -49,7 +49,7 @@ return {
       mode = { "n", "v" },
     },
     {
-      "<leader>dp",
+      "<leader>dH",
       function()
         require("dap.ui.widgets").preview()
       end,
@@ -163,10 +163,26 @@ return {
       end,
       desc = "Debug: See last session result.",
     },
+    {
+      "<leader>dp",
+      function()
+        require("dap").up()
+      end,
+      desc = "Debug: Move up the stack",
+    },
+    {
+      "<leader>dn",
+      function()
+        require("dap").down()
+      end,
+      desc = "Debug: Move down the stack",
+    },
   },
   config = function()
     local dap = require("dap")
     local dapui = require("dapui")
+
+    dap.set_log_level("TRACE")
 
     require("mason-nvim-dap").setup({
       -- Makes a best effort to setup the various debuggers with
@@ -188,6 +204,12 @@ return {
     -- Dap UI setup
     -- For more information, see |:help nvim-dap-ui|
     dapui.setup({
+      element_mappings = {
+        stacks = {
+          open = "<CR>",
+          expand = "o",
+        },
+      },
       -- Set icons to characters that are more likely to work in every terminal.
       --    Feel free to remove or use ones that you like more! :)
       --    Don't feel like these are good choices.
