@@ -151,9 +151,16 @@ return {
     {
       "<leader>dB",
       function()
-        require("dap").set_breakpoint(vim.fn.input("Breakpoint condition: "))
+        local condition = vim.fn.input("Breakpoint condition (optional): ")
+        local hit_condition = vim.fn.input("Hit count (optional): ")
+
+        -- Convert empty strings to nil
+        condition = condition ~= "" and condition or nil
+        hit_condition = hit_condition ~= "" and hit_condition or nil
+
+        require("dap").toggle_breakpoint(condition, hit_condition)
       end,
-      desc = "Debug: Set Breakpoint",
+      desc = "Debug: Toggle Advanced Breakpoint",
     },
     -- Toggle to see last session result. Without this, you can't see session output in case of unhandled exception.
     {
@@ -248,6 +255,8 @@ return {
     -- Install golang specific config
     require("dap-go").setup({
       delve = {
+        initialize_timeout_sec = 20,
+        port = "${port}",
         -- On Windows delve must be run attached or it crashes.
         -- See https://github.com/leoluz/nvim-dap-go/blob/main/README.md#configuring
         detached = vim.fn.has("win32") == 0,

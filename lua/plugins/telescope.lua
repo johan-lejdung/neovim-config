@@ -11,9 +11,9 @@ return {
         -- This is only run then, not every time Neovim starts up.
         build = "make",
 
-        -- `cond` is a condition used to determine whether this plugin should be
         -- installed and loaded.
         cond = function()
+          -- `cond` is a condition used to determine whether this plugin should be
           return vim.fn.executable("make") == 1
         end,
       },
@@ -57,7 +57,7 @@ return {
               ["<c-c>"] = actions.close,
               ["<c-t>"] = open_with_trouble,
             },
-            n = { ["<c-t>"] = open_with_trouble },
+            n = { ["<c-t>"] = open_with_trouble, ["<c-c>"] = actions.close },
           },
         },
         -- pickers = {}
@@ -111,6 +111,9 @@ return {
       end, { desc = "[S]earch [D]iagnostics (Buffer)" })
 
       -- Workspace diagnostics in telescope, then <c-t> to send to trouble
+      vim.keymap.set("n", "<leader>W", function()
+        require("telescope.builtin").diagnostics()
+      end, { desc = "[S]earch [D]iagnostics (Workspace)" })
       vim.keymap.set("n", "<leader>sD", function()
         require("telescope.builtin").diagnostics()
       end, { desc = "[S]earch [D]iagnostics (Workspace)" })

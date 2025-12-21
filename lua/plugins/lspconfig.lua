@@ -203,6 +203,14 @@ return {
         gopls = {},
         pyright = {},
         ts_ls = {},
+        postgres_lsp = {
+          settings = {
+            cmd = { "postgrestools", "lsp-proxy" },
+            filetypes = { "sql" },
+            root_markers = { "postgrestools.jsonc" },
+          },
+        },
+        zls = {},
         lua_ls = {
           -- cmd = { ... },
           -- filetypes = { ... },
