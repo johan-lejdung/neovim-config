@@ -23,11 +23,28 @@ return {
           --    https://github.com/rafamadriz/friendly-snippets
           -- {
           "rafamadriz/friendly-snippets",
-          --   config = function()
-          --     require('luasnip.loaders.from_vscode').lazy_load()
-          --   end,
           -- },
         },
+        config = function()
+          local vscode_loader = require("luasnip.loaders.from_vscode")
+
+          -- 1. Load friendly-snippets from your plugin dependencies
+          -- We don't pass a path here so it looks in the standard 'site' packages
+          vscode_loader.lazy_load()
+
+          -- 2. Load your custom snippets folder
+          -- We use an absolute path and specify exactly where to look
+          vscode_loader.lazy_load({
+            paths = { vim.fn.stdpath("config") .. "/snippets" },
+          })
+
+          -- Optional: This helps LuaSnip pick up new filetypes if you open a file
+          -- before the loader is fully finished.
+          require("luasnip").config.setup({
+            history = true,
+            updateevents = "TextChanged,TextChangedI",
+          })
+        end,
         opts = {},
       },
       "folke/lazydev.nvim",
@@ -57,7 +74,7 @@ return {
         -- <c-k>: Toggle signature help
         --
         -- See :h blink-cmp-config-keymap for defining your own keymap
-        preset = "super-tab",
+        preset = "enter",
         -- For more advanced Luasnip keymaps (e.g. selecting choice nodes, expansion) see:
         --    https://github.com/L3MON4D3/LuaSnip?tab=readme-ov-file#keymaps
       },

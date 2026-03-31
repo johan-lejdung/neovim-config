@@ -51,6 +51,9 @@ return {
         --  All the info you're looking for is in `:help telescope.setup()`
         --
         defaults = {
+          file_ignore_patterns = {
+            "mocks/",
+          },
           mappings = {
             i = {
               ["<c-f>"] = "to_fuzzy_refine",

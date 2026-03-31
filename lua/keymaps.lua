@@ -6,7 +6,13 @@
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
 
 -- Diagnostic keymaps
-vim.keymap.set("n", "<leader>q", function () vim.diagnostic.open_float() end, { desc = "Open diagnostic floating panel" })
+vim.keymap.set("n", "<leader>q", function()
+  vim.diagnostic.open_float()
+end, { desc = "Open diagnostic floating panel" })
+
+vim.keymap.set("n", "<leader>tw", function()
+  vim.opt.wrap = not vim.opt.wrap:get()
+end, { desc = "[T]oggle [w]rap" })
 
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
