@@ -4,10 +4,13 @@ return {
     -- Enable `lukas-reineke/indent-blankline.nvim`
     -- See `:help ibl`
     main = "ibl",
-    opts = {},
-    config = {
-      whitespace = { highlight = { "NonText" } },
-      indent = { highlight = { "NonText" }, char = "▏", tab_char = "▏" },
+    event = { "BufReadPre", "BufNewFile" },
+    opts = {
+      indent = { char = "▏", tab_char = "▏", highlight = { "IblIndent" } },
     },
+    config = function(_, opts)
+      vim.api.nvim_set_hl(0, "IblIndent", { fg = "#555555" })
+      require("ibl").setup(opts)
+    end,
   },
 }

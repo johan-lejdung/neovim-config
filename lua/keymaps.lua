@@ -14,6 +14,10 @@ vim.keymap.set("n", "<leader>tw", function()
   vim.opt.wrap = not vim.opt.wrap:get()
 end, { desc = "[T]oggle [w]rap" })
 
+vim.keymap.set("n", "<leader>ts", function()
+  vim.opt.list = not vim.opt.list:get()
+end, { desc = "[T]oggle whitespace [s]ymbols" })
+
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
 -- is not what someone will guess without a bit more experience.
