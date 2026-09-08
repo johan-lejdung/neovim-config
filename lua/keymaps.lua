@@ -25,6 +25,19 @@ end, { desc = "[T]oggle whitespace [s]ymbols" })
 -- NOTE: This won't work in all terminal emulators/tmux/etc. Try your own mapping
 -- or just use <C-\><C-n> to exit terminal mode
 vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
+
+-- Move between windows straight from terminal mode (e.g. out of the Claude Code pane).
+-- Only the four directions are mapped so a bare <C-w> still reaches the terminal
+-- process after `timeoutlen` (Claude Code uses it to delete the previous word).
+vim.keymap.set("t", "<C-w>h", "<C-\\><C-n><C-w>h", { desc = "Move focus to the left window" })
+vim.keymap.set("t", "<C-w>j", "<C-\\><C-n><C-w>j", { desc = "Move focus to the lower window" })
+vim.keymap.set("t", "<C-w>k", "<C-\\><C-n><C-w>k", { desc = "Move focus to the upper window" })
+vim.keymap.set("t", "<C-w>l", "<C-\\><C-n><C-w>l", { desc = "Move focus to the right window" })
+-- Same, for when Ctrl is still held on the second key.
+vim.keymap.set("t", "<C-w><C-h>", "<C-\\><C-n><C-w>h", { desc = "Move focus to the left window" })
+vim.keymap.set("t", "<C-w><C-j>", "<C-\\><C-n><C-w>j", { desc = "Move focus to the lower window" })
+vim.keymap.set("t", "<C-w><C-k>", "<C-\\><C-n><C-w>k", { desc = "Move focus to the upper window" })
+vim.keymap.set("t", "<C-w><C-l>", "<C-\\><C-n><C-w>l", { desc = "Move focus to the right window" })
 vim.keymap.set("i", "<C-d>", "<Del>", { desc = "Delete character in front of cursor" })
 
 -- TIP: Disable arrow keys in normal mode
