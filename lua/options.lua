@@ -50,6 +50,11 @@ vim.o.timeoutlen = 300
 vim.o.splitright = true
 vim.o.splitbelow = true
 
+-- Always show the tabline, even with a single tab. Otherwise it appears when
+-- Diffview opens a second tab and shrinks every window (including the Claude
+-- Code terminal) by a row, which trips its renderer until a manual resize.
+vim.o.showtabline = 2
+
 -- Sets how neovim will display certain whitespace characters in the editor.
 --  See `:help 'list'`
 --  and `:help 'listchars'`
