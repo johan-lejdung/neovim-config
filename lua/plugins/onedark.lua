@@ -12,6 +12,8 @@ return {
           SpecialComment = { fg = "$light_grey" },
           ["@comment"] = { fg = "$light_grey" },
           ["@comment.documentation"] = { fg = "$light_grey" },
+          -- Active tab: same colors as the editor instead of an inverted light block.
+          TabLineSel = { fg = "$fg", bg = "$bg0" },
         },
       })
       -- Enable theme
