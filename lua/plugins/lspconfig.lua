@@ -202,7 +202,8 @@ return {
 
         gopls = {},
         pyright = {},
-        ts_ls = {},
+        -- ts_ls = {}, -- replaced by tsc (TypeScript 7 native Go server)
+        tsc = {},
         postgres_lsp = {
           settings = {
             cmd = { "postgrestools", "lsp-proxy" },
@@ -249,6 +250,10 @@ return {
       require("mason-lspconfig").setup({
         ensure_installed = {}, -- explicitly set to an empty table (Kickstart populates installs via mason-tool-installer)
         automatic_installation = false,
+        -- mason-lspconfig v2 enables every Mason-installed server, ignoring the
+        -- `servers` table above. Keep ts_ls off so it never runs alongside tsc,
+        -- which would attach two clients and duplicate every reference/definition.
+        automatic_enable = { exclude = { "ts_ls" } },
         handlers = {
           function(server_name)
             local server = servers[server_name] or {}
