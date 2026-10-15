@@ -5,6 +5,20 @@ return {
     event = { "BufReadPre", "BufNewFile" },
     config = function()
       local lint = require("lint")
+
+      -- Run eslint_d from the nearest package root rather than Neovim's cwd.
+      -- In a monorepo opened from the root, this finds the package-local
+      -- node_modules/.bin/eslint_d and lets ESLint 9 locate the package's
+      -- eslint.config.js (flat config lookup starts from cwd, not the file).
+      -- nvim-lint needs `cwd` as a string, so wrap the linter in a function;
+      -- nvim-lint calls it on every run and we resolve the root at that point.
+      local eslint_d = lint.linters.eslint_d
+      lint.linters.eslint_d = function()
+        return vim.tbl_extend("force", eslint_d, {
+          cwd = vim.fs.root(0, { "package.json" }) or vim.fn.getcwd(),
+        })
+      end
+
       lint.linters_by_ft = {
         markdown = { "markdownlint" },
         javascript = { "eslint_d" },
