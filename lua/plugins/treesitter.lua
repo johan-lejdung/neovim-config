@@ -29,6 +29,15 @@ return {
       -- 3. Force reload: TSBufToggle highlight
       -- End Register Bruno
 
+      -- OpenTofu's own extensions; tofu_ls attaches to these filetypes and the terraform parser highlights them
+      vim.filetype.add({
+        extension = {
+          tofu = "opentofu",
+          tofuvars = "opentofu-vars",
+        },
+      })
+      vim.treesitter.language.register("terraform", { "opentofu", "opentofu-vars" })
+
       -- Now configure treesitter with your existing options
       require("nvim-treesitter.configs").setup({
         ensure_installed = {
@@ -38,6 +47,7 @@ return {
           "go",
           "javascript",
           "diff",
+          "hcl",
           "html",
           "lua",
           "luadoc",
@@ -45,6 +55,7 @@ return {
           "markdown_inline",
           "sql",
           "query",
+          "terraform",
           "vim",
           "vimdoc",
         },

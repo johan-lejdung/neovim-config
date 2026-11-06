@@ -63,6 +63,7 @@ return {
         { "<leader>d", group = "[D]ebug" },
         { "<leader>t", group = "[T]oggle" },
         { "<leader>h", group = "Git [H]unk", mode = { "n", "v" } },
+        { "<leader>o", group = "[O]cto" },
       },
     },
   },

@@ -212,6 +212,7 @@ return {
           },
         },
         zls = {},
+        tofu_ls = {},
         lua_ls = {
           -- cmd = { ... },
           -- filetypes = { ... },
